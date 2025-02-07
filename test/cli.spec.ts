@@ -69,7 +69,7 @@ it('ignores files added in eslint.config.js', async () => {
   expect(stdout).toContain('Created eslint.config.mjs');
   expect(eslintConfigContent)
     .toMatchInlineSnapshot(`
-      "import hadronomy fr@hadronomy/eslint-configt-config'
+      "import hadronomy from '@hadronomy/eslint-config'
 
       export default hadronomy({
         ignores: ["some-path","**/some-path/**","some-file","**/some-file/**"],

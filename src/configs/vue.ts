@@ -5,11 +5,11 @@ import type {
   OptionsStylistic,
   OptionsVue,
   TypedFlatConfigItem,
-} from '../types'
+} from '../types';
 
-import { mergeProcessors } from 'eslint-merge-processors'
-import { GLOB_VUE } from '../globs'
-import { interopDefault } from '../utils'
+import { mergeProcessors } from 'eslint-merge-processors';
+import { GLOB_VUE } from '../globs';
+import { interopDefault } from '../utils';
 
 export async function vue(
   options: OptionsVue & OptionsHasTypeScript & OptionsOverrides & OptionsStylistic & OptionsFiles = {},
@@ -19,15 +19,15 @@ export async function vue(
     overrides = {},
     stylistic = true,
     vueVersion = 3,
-  } = options
+  } = options;
 
   const sfcBlocks = options.sfcBlocks === true
     ? {}
-    : options.sfcBlocks ?? {}
+    : options.sfcBlocks ?? {};
 
   const {
     indent = 2,
-  } = typeof stylistic === 'boolean' ? {} : stylistic
+  } = typeof stylistic === 'boolean' ? {} : stylistic;
 
   const [
     pluginVue,
@@ -37,7 +37,7 @@ export async function vue(
     interopDefault(import('eslint-plugin-vue')),
     interopDefault(import('vue-eslint-parser')),
     interopDefault(import('eslint-processor-vue-blocks')),
-  ] as const)
+  ] as const);
 
   return [
     {
@@ -61,7 +61,7 @@ export async function vue(
           watchEffect: 'readonly',
         },
       },
-      name: 'antfu/vue/setup',
+      name: 'hadronomy/vue/setup',
       plugins: {
         vue: pluginVue,
       },
@@ -81,7 +81,7 @@ export async function vue(
           sourceType: 'module',
         },
       },
-      name: 'antfu/vue/rules',
+      name: 'hadronomy/vue/rules',
       processor: sfcBlocks === false
         ? pluginVue.processors['.vue']
         : mergeProcessors([
@@ -109,7 +109,7 @@ export async function vue(
               ...pluginVue.configs['vue3-recommended'].rules as any,
             },
 
-        'antfu/no-top-level-await': 'off',
+        'hadronomy/no-top-level-await': 'off',
         'node/prefer-global/process': 'off',
         'ts/explicit-function-return-type': 'off',
 
@@ -195,5 +195,5 @@ export async function vue(
         ...overrides,
       },
     },
-  ]
+  ];
 }

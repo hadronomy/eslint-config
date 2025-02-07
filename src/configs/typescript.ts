@@ -6,12 +6,12 @@ import type {
   OptionsTypeScriptParserOptions,
   OptionsTypeScriptWithTypes,
   TypedFlatConfigItem,
-} from '../types'
+} from '../types';
 
-import process from 'node:process'
-import { GLOB_ASTRO_TS, GLOB_MARKDOWN, GLOB_TS, GLOB_TSX } from '../globs'
-import { pluginAntfu } from '../plugins'
-import { interopDefault, renameRules } from '../utils'
+import process from 'node:process';
+import { GLOB_ASTRO_TS, GLOB_MARKDOWN, GLOB_TS, GLOB_TSX } from '../globs';
+import { pluginhadronomy } from '../plugins';
+import { interopDefault, renameRules } from '../utils';
 
 export async function typescript(
   options: OptionsFiles & OptionsComponentExts & OptionsOverrides & OptionsTypeScriptWithTypes & OptionsTypeScriptParserOptions & OptionsProjectType = {},
@@ -22,23 +22,23 @@ export async function typescript(
     overridesTypeAware = {},
     parserOptions = {},
     type = 'app',
-  } = options
+  } = options;
 
   const files = options.files ?? [
     GLOB_TS,
     GLOB_TSX,
     ...componentExts.map(ext => `**/*.${ext}`),
-  ]
+  ];
 
-  const filesTypeAware = options.filesTypeAware ?? [GLOB_TS, GLOB_TSX]
+  const filesTypeAware = options.filesTypeAware ?? [GLOB_TS, GLOB_TSX];
   const ignoresTypeAware = options.ignoresTypeAware ?? [
     `${GLOB_MARKDOWN}/**`,
     GLOB_ASTRO_TS,
-  ]
+  ];
   const tsconfigPath = options?.tsconfigPath
     ? options.tsconfigPath
-    : undefined
-  const isTypeAware = !!tsconfigPath
+    : undefined;
+  const isTypeAware = !!tsconfigPath;
 
   const typeAwareRules: TypedFlatConfigItem['rules'] = {
     'dot-notation': 'off',
@@ -62,7 +62,7 @@ export async function typescript(
     'ts/strict-boolean-expressions': ['error', { allowNullableBoolean: true, allowNullableObject: true }],
     'ts/switch-exhaustiveness-check': 'error',
     'ts/unbound-method': 'error',
-  }
+  };
 
   const [
     pluginTs,
@@ -70,7 +70,7 @@ export async function typescript(
   ] = await Promise.all([
     interopDefault(import('@typescript-eslint/eslint-plugin')),
     interopDefault(import('@typescript-eslint/parser')),
-  ] as const)
+  ] as const);
 
   function makeParser(typeAware: boolean, files: string[], ignores?: string[]): TypedFlatConfigItem {
     return {
@@ -93,16 +93,16 @@ export async function typescript(
           ...parserOptions as any,
         },
       },
-      name: `antfu/typescript/${typeAware ? 'type-aware-parser' : 'parser'}`,
-    }
+      name: `hadronomy/typescript/${typeAware ? 'type-aware-parser' : 'parser'}`,
+    };
   }
 
   return [
     {
       // Install the plugins without globs, so they can be configured separately.
-      name: 'antfu/typescript/setup',
+      name: 'hadronomy/typescript/setup',
       plugins: {
-        antfu: pluginAntfu,
+        hadronomy: pluginhadronomy,
         ts: pluginTs as any,
       },
     },
@@ -117,7 +117,7 @@ export async function typescript(
         ],
     {
       files,
-      name: 'antfu/typescript/rules',
+      name: 'hadronomy/typescript/rules',
       rules: {
         ...renameRules(
           pluginTs.configs['eslint-recommended'].overrides![0].rules!,
@@ -179,12 +179,12 @@ export async function typescript(
       ? [{
           files: filesTypeAware,
           ignores: ignoresTypeAware,
-          name: 'antfu/typescript/rules-type-aware',
+          name: 'hadronomy/typescript/rules-type-aware',
           rules: {
             ...typeAwareRules,
             ...overridesTypeAware,
           },
         }]
       : [],
-  ]
+  ];
 }

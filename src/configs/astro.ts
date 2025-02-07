@@ -1,7 +1,7 @@
-import type { OptionsFiles, OptionsOverrides, OptionsStylistic, TypedFlatConfigItem } from '../types'
+import type { OptionsFiles, OptionsOverrides, OptionsStylistic, TypedFlatConfigItem } from '../types';
 
-import { GLOB_ASTRO } from '../globs'
-import { interopDefault } from '../utils'
+import { GLOB_ASTRO } from '../globs';
+import { interopDefault } from '../utils';
 
 export async function astro(
   options: OptionsOverrides & OptionsStylistic & OptionsFiles = {},
@@ -10,7 +10,7 @@ export async function astro(
     files = [GLOB_ASTRO],
     overrides = {},
     stylistic = true,
-  } = options
+  } = options;
 
   const [
     pluginAstro,
@@ -20,11 +20,11 @@ export async function astro(
     interopDefault(import('eslint-plugin-astro')),
     interopDefault(import('astro-eslint-parser')),
     interopDefault(import('@typescript-eslint/parser')),
-  ] as const)
+  ] as const);
 
   return [
     {
-      name: 'antfu/astro/setup',
+      name: 'hadronomy/astro/setup',
       plugins: {
         astro: pluginAstro,
       },
@@ -40,15 +40,12 @@ export async function astro(
         },
         sourceType: 'module',
       },
-      name: 'antfu/astro/rules',
+      name: 'hadronomy/astro/rules',
       processor: 'astro/client-side-ts',
       rules: {
-        // Astro uses top level await for e.g. data fetching
-        // https://docs.astro.build/en/guides/data-fetching/#fetch-in-astro
-        'antfu/no-top-level-await': 'off',
-
         // use recommended rules
         'astro/missing-client-only-directive-value': 'error',
+
         'astro/no-conflict-set-directives': 'error',
         'astro/no-deprecated-astro-canonicalurl': 'error',
         'astro/no-deprecated-astro-fetchcontent': 'error',
@@ -58,6 +55,9 @@ export async function astro(
         'astro/no-unused-define-vars-in-style': 'error',
         'astro/semi': 'off',
         'astro/valid-compile': 'error',
+        // Astro uses top level await for e.g. data fetching
+        // https://docs.astro.build/en/guides/data-fetching/#fetch-in-astro
+        'hadronomy/no-top-level-await': 'off',
 
         ...stylistic
           ? {
@@ -71,5 +71,5 @@ export async function astro(
         ...overrides,
       },
     },
-  ]
+  ];
 }

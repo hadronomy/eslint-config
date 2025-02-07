@@ -1,7 +1,7 @@
-import type { OptionsFiles, OptionsOverrides, OptionsStylistic, TypedFlatConfigItem } from '../types'
+import type { OptionsFiles, OptionsOverrides, OptionsStylistic, TypedFlatConfigItem } from '../types';
 
-import { GLOB_JSON, GLOB_JSON5, GLOB_JSONC } from '../globs'
-import { interopDefault } from '../utils'
+import { GLOB_JSON, GLOB_JSON5, GLOB_JSONC } from '../globs';
+import { interopDefault } from '../utils';
 
 export async function jsonc(
   options: OptionsFiles & OptionsStylistic & OptionsOverrides = {},
@@ -10,11 +10,11 @@ export async function jsonc(
     files = [GLOB_JSON, GLOB_JSON5, GLOB_JSONC],
     overrides = {},
     stylistic = true,
-  } = options
+  } = options;
 
   const {
     indent = 2,
-  } = typeof stylistic === 'boolean' ? {} : stylistic
+  } = typeof stylistic === 'boolean' ? {} : stylistic;
 
   const [
     pluginJsonc,
@@ -22,11 +22,11 @@ export async function jsonc(
   ] = await Promise.all([
     interopDefault(import('eslint-plugin-jsonc')),
     interopDefault(import('jsonc-eslint-parser')),
-  ] as const)
+  ] as const);
 
   return [
     {
-      name: 'antfu/jsonc/setup',
+      name: 'hadronomy/jsonc/setup',
       plugins: {
         jsonc: pluginJsonc as any,
       },
@@ -36,7 +36,7 @@ export async function jsonc(
       languageOptions: {
         parser: parserJsonc,
       },
-      name: 'antfu/jsonc/rules',
+      name: 'hadronomy/jsonc/rules',
       rules: {
         'jsonc/no-bigint-literals': 'error',
         'jsonc/no-binary-expression': 'error',
@@ -83,5 +83,5 @@ export async function jsonc(
         ...overrides,
       },
     },
-  ]
+  ];
 }

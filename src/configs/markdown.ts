@@ -1,9 +1,9 @@
-import type { OptionsComponentExts, OptionsFiles, OptionsOverrides, TypedFlatConfigItem } from '../types'
+import type { OptionsComponentExts, OptionsFiles, OptionsOverrides, TypedFlatConfigItem } from '../types';
 
-import { mergeProcessors, processorPassThrough } from 'eslint-merge-processors'
-import { GLOB_MARKDOWN, GLOB_MARKDOWN_CODE, GLOB_MARKDOWN_IN_MARKDOWN } from '../globs'
+import { mergeProcessors, processorPassThrough } from 'eslint-merge-processors';
+import { GLOB_MARKDOWN, GLOB_MARKDOWN_CODE, GLOB_MARKDOWN_IN_MARKDOWN } from '../globs';
 
-import { interopDefault, parserPlain } from '../utils'
+import { interopDefault, parserPlain } from '../utils';
 
 export async function markdown(
   options: OptionsFiles & OptionsComponentExts & OptionsOverrides = {},
@@ -12,13 +12,13 @@ export async function markdown(
     componentExts = [],
     files = [GLOB_MARKDOWN],
     overrides = {},
-  } = options
+  } = options;
 
-  const markdown = await interopDefault(import('@eslint/markdown'))
+  const markdown = await interopDefault(import('@eslint/markdown'));
 
   return [
     {
-      name: 'antfu/markdown/setup',
+      name: 'hadronomy/markdown/setup',
       plugins: {
         markdown,
       },
@@ -26,7 +26,7 @@ export async function markdown(
     {
       files,
       ignores: [GLOB_MARKDOWN_IN_MARKDOWN],
-      name: 'antfu/markdown/processor',
+      name: 'hadronomy/markdown/processor',
       // `eslint-plugin-markdown` only creates virtual files for code blocks,
       // but not the markdown file itself. We use `eslint-merge-processors` to
       // add a pass-through processor for the markdown file itself.
@@ -40,7 +40,7 @@ export async function markdown(
       languageOptions: {
         parser: parserPlain,
       },
-      name: 'antfu/markdown/parser',
+      name: 'hadronomy/markdown/parser',
     },
     {
       files: [
@@ -54,9 +54,9 @@ export async function markdown(
           },
         },
       },
-      name: 'antfu/markdown/disables',
+      name: 'hadronomy/markdown/disables',
       rules: {
-        'antfu/no-top-level-await': 'off',
+        'hadronomy/no-top-level-await': 'off',
 
         'import/newline-after-import': 'off',
 
@@ -90,5 +90,5 @@ export async function markdown(
         ...overrides,
       },
     },
-  ]
+  ];
 }

@@ -1,4 +1,4 @@
-import type { TypedFlatConfigItem } from '../types'
+import type { TypedFlatConfigItem } from '../types';
 
 /**
  * Sort package.json
@@ -9,7 +9,7 @@ export async function sortPackageJson(): Promise<TypedFlatConfigItem[]> {
   return [
     {
       files: ['**/package.json'],
-      name: 'antfu/sort/package-json',
+      name: 'hadronomy/sort/package-json',
       rules: {
         'jsonc/sort-array-values': [
           'error',
@@ -105,7 +105,7 @@ export async function sortPackageJson(): Promise<TypedFlatConfigItem[]> {
         ],
       },
     },
-  ]
+  ];
 }
 /**
  * Sort tsconfig.json
@@ -117,7 +117,7 @@ export function sortTsconfig(): TypedFlatConfigItem[] {
   return [
     {
       files: ['**/tsconfig.json', '**/tsconfig.*.json'],
-      name: 'antfu/sort/tsconfig-json',
+      name: 'hadronomy/sort/tsconfig-json',
       rules: {
         'jsonc/sort-keys': [
           'error',
@@ -237,5 +237,5 @@ export function sortTsconfig(): TypedFlatConfigItem[] {
         ],
       },
     },
-  ]
+  ];
 }

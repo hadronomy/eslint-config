@@ -1,23 +1,23 @@
-import type { OptionsStylistic, TypedFlatConfigItem } from '../types'
+import type { OptionsStylistic, TypedFlatConfigItem } from '../types';
 
-import { pluginAntfu, pluginImport } from '../plugins'
+import { pluginhadronomy, pluginImport } from '../plugins';
 
 export async function imports(options: OptionsStylistic = {}): Promise<TypedFlatConfigItem[]> {
   const {
     stylistic = true,
-  } = options
+  } = options;
 
   return [
     {
-      name: 'antfu/imports/rules',
+      name: 'hadronomy/imports/rules',
       plugins: {
-        antfu: pluginAntfu,
+        hadronomy: pluginhadronomy,
         import: pluginImport,
       },
       rules: {
-        'antfu/import-dedupe': 'error',
-        'antfu/no-import-dist': 'error',
-        'antfu/no-import-node-modules-by-path': 'error',
+        'hadronomy/import-dedupe': 'error',
+        'hadronomy/no-import-dist': 'error',
+        'hadronomy/no-import-node-modules-by-path': 'error',
 
         'import/consistent-type-specifier-style': ['error', 'prefer-top-level'],
         'import/first': 'error',
@@ -34,5 +34,5 @@ export async function imports(options: OptionsStylistic = {}): Promise<TypedFlat
           : {},
       },
     },
-  ]
+  ];
 }

@@ -1,8 +1,8 @@
-import type { OptionsIsInEditor, OptionsOverrides, TypedFlatConfigItem } from '../types'
+import type { OptionsIsInEditor, OptionsOverrides, TypedFlatConfigItem } from '../types';
 
-import globals from 'globals'
+import globals from 'globals';
 
-import { pluginAntfu, pluginUnusedImports } from '../plugins'
+import { pluginhadronomy, pluginUnusedImports } from '../plugins';
 
 export async function javascript(
   options: OptionsIsInEditor & OptionsOverrides = {},
@@ -10,7 +10,7 @@ export async function javascript(
   const {
     isInEditor = false,
     overrides = {},
-  } = options
+  } = options;
 
   return [
     {
@@ -36,25 +36,25 @@ export async function javascript(
       linterOptions: {
         reportUnusedDisableDirectives: true,
       },
-      name: 'antfu/javascript/setup',
+      name: 'hadronomy/javascript/setup',
     },
     {
-      name: 'antfu/javascript/rules',
+      name: 'hadronomy/javascript/rules',
       plugins: {
-        'antfu': pluginAntfu,
+        'hadronomy': pluginhadronomy,
         'unused-imports': pluginUnusedImports,
       },
       rules: {
         'accessor-pairs': ['error', { enforceForClassMembers: true, setWithoutGet: true }],
 
-        'antfu/no-top-level-await': 'error',
-
         'array-callback-return': 'error',
+
         'block-scoped-var': 'error',
         'constructor-super': 'error',
         'default-case-last': 'error',
         'dot-notation': ['error', { allowKeywords: true }],
         'eqeqeq': ['error', 'smart'],
+        'hadronomy/no-top-level-await': 'error',
         'new-cap': ['error', { capIsNew: false, newIsCap: true, properties: true }],
         'no-alert': 'error',
         'no-array-constructor': 'error',
@@ -211,5 +211,5 @@ export async function javascript(
         ...overrides,
       },
     },
-  ]
+  ];
 }

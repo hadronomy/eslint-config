@@ -1,7 +1,7 @@
-import type { OptionsFiles, OptionsHasTypeScript, OptionsOverrides, OptionsTypeScriptWithTypes, TypedFlatConfigItem } from '../types'
-import { GLOB_JSX, GLOB_TSX } from '../globs'
+import type { OptionsFiles, OptionsHasTypeScript, OptionsOverrides, OptionsTypeScriptWithTypes, TypedFlatConfigItem } from '../types';
+import { GLOB_JSX, GLOB_TSX } from '../globs';
 
-import { ensurePackages, interopDefault, toArray } from '../utils'
+import { ensurePackages, interopDefault, toArray } from '../utils';
 
 export async function solid(
   options: OptionsHasTypeScript & OptionsOverrides & OptionsFiles & OptionsTypeScriptWithTypes = {},
@@ -10,16 +10,16 @@ export async function solid(
     files = [GLOB_JSX, GLOB_TSX],
     overrides = {},
     typescript = true,
-  } = options
+  } = options;
 
   await ensurePackages([
     'eslint-plugin-solid',
-  ])
+  ]);
 
   const tsconfigPath = options?.tsconfigPath
     ? toArray(options.tsconfigPath)
-    : undefined
-  const isTypeAware = !!tsconfigPath
+    : undefined;
+  const isTypeAware = !!tsconfigPath;
 
   const [
     pluginSolid,
@@ -27,11 +27,11 @@ export async function solid(
   ] = await Promise.all([
     interopDefault(import('eslint-plugin-solid')),
     interopDefault(import('@typescript-eslint/parser')),
-  ] as const)
+  ] as const);
 
   return [
     {
-      name: 'antfu/solid/setup',
+      name: 'hadronomy/solid/setup',
       plugins: {
         solid: pluginSolid,
       },
@@ -48,7 +48,7 @@ export async function solid(
         },
         sourceType: 'module',
       },
-      name: 'antfu/solid/rules',
+      name: 'hadronomy/solid/rules',
       rules: {
         // reactivity
         'solid/components-return-once': 'warn',
@@ -85,5 +85,5 @@ export async function solid(
         ...overrides,
       },
     },
-  ]
+  ];
 }

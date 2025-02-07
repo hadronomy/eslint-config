@@ -1,7 +1,7 @@
-import type { OptionsFiles, OptionsOverrides, OptionsStylistic, TypedFlatConfigItem } from '../types'
-import { GLOB_YAML } from '../globs'
+import type { OptionsFiles, OptionsOverrides, OptionsStylistic, TypedFlatConfigItem } from '../types';
+import { GLOB_YAML } from '../globs';
 
-import { interopDefault } from '../utils'
+import { interopDefault } from '../utils';
 
 export async function yaml(
   options: OptionsOverrides & OptionsStylistic & OptionsFiles = {},
@@ -10,12 +10,12 @@ export async function yaml(
     files = [GLOB_YAML],
     overrides = {},
     stylistic = true,
-  } = options
+  } = options;
 
   const {
     indent = 2,
     quotes = 'single',
-  } = typeof stylistic === 'boolean' ? {} : stylistic
+  } = typeof stylistic === 'boolean' ? {} : stylistic;
 
   const [
     pluginYaml,
@@ -23,11 +23,11 @@ export async function yaml(
   ] = await Promise.all([
     interopDefault(import('eslint-plugin-yml')),
     interopDefault(import('yaml-eslint-parser')),
-  ] as const)
+  ] as const);
 
   return [
     {
-      name: 'antfu/yaml/setup',
+      name: 'hadronomy/yaml/setup',
       plugins: {
         yaml: pluginYaml,
       },
@@ -37,7 +37,7 @@ export async function yaml(
       languageOptions: {
         parser: parserYaml,
       },
-      name: 'antfu/yaml/rules',
+      name: 'hadronomy/yaml/rules',
       rules: {
         'style/spaced-comment': 'off',
 
@@ -69,5 +69,5 @@ export async function yaml(
         ...overrides,
       },
     },
-  ]
+  ];
 }

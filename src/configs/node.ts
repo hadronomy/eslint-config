@@ -1,11 +1,11 @@
-import type { TypedFlatConfigItem } from '../types'
+import type { TypedFlatConfigItem } from '../types';
 
-import { pluginNode } from '../plugins'
+import { pluginNode } from '../plugins';
 
 export async function node(): Promise<TypedFlatConfigItem[]> {
   return [
     {
-      name: 'antfu/node/rules',
+      name: 'hadronomy/node/rules',
       plugins: {
         node: pluginNode,
       },
@@ -20,5 +20,5 @@ export async function node(): Promise<TypedFlatConfigItem[]> {
         'node/process-exit-as-throw': 'error',
       },
     },
-  ]
+  ];
 }

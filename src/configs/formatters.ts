@@ -1,11 +1,11 @@
-import type { OptionsFormatters, StylisticConfig, TypedFlatConfigItem } from '../types'
-import type { VendoredPrettierOptions, VendoredPrettierRuleOptions } from '../vender/prettier-types'
+import type { OptionsFormatters, StylisticConfig, TypedFlatConfigItem } from '../types';
+import type { VendoredPrettierOptions, VendoredPrettierRuleOptions } from '../vender/prettier-types';
 
-import { isPackageExists } from 'local-pkg'
-import { GLOB_ASTRO, GLOB_ASTRO_TS, GLOB_CSS, GLOB_GRAPHQL, GLOB_HTML, GLOB_LESS, GLOB_MARKDOWN, GLOB_POSTCSS, GLOB_SCSS, GLOB_SVG, GLOB_XML } from '../globs'
+import { isPackageExists } from 'local-pkg';
+import { GLOB_ASTRO, GLOB_ASTRO_TS, GLOB_CSS, GLOB_GRAPHQL, GLOB_HTML, GLOB_LESS, GLOB_MARKDOWN, GLOB_POSTCSS, GLOB_SCSS, GLOB_SVG, GLOB_XML } from '../globs';
 
-import { ensurePackages, interopDefault, isPackageInScope, parserPlain } from '../utils'
-import { StylisticConfigDefaults } from './stylistic'
+import { ensurePackages, interopDefault, isPackageInScope, parserPlain } from '../utils';
+import { StylisticConfigDefaults } from './stylistic';
 
 function mergePrettierOptions(
   options: VendoredPrettierOptions,
@@ -18,7 +18,7 @@ function mergePrettierOptions(
       ...(overrides.plugins || []),
       ...(options.plugins || []),
     ],
-  }
+  };
 }
 
 export async function formatters(
@@ -26,7 +26,7 @@ export async function formatters(
   stylistic: StylisticConfig = {},
 ): Promise<TypedFlatConfigItem[]> {
   if (options === true) {
-    const isPrettierPluginXmlInScope = isPackageInScope('@prettier/plugin-xml')
+    const isPrettierPluginXmlInScope = isPackageInScope('@prettier/plugin-xml');
     options = {
       astro: isPackageInScope('prettier-plugin-astro'),
       css: true,
@@ -36,7 +36,7 @@ export async function formatters(
       slidev: isPackageExists('@slidev/cli'),
       svg: isPrettierPluginXmlInScope,
       xml: isPrettierPluginXmlInScope,
-    }
+    };
   }
 
   await ensurePackages([
@@ -44,10 +44,10 @@ export async function formatters(
     options.markdown && options.slidev ? 'prettier-plugin-slidev' : undefined,
     options.astro ? 'prettier-plugin-astro' : undefined,
     (options.xml || options.svg) ? '@prettier/plugin-xml' : undefined,
-  ])
+  ]);
 
   if (options.slidev && options.markdown !== true && options.markdown !== 'prettier')
-    throw new Error('`slidev` option only works when `markdown` is enabled with `prettier`')
+    throw new Error('`slidev` option only works when `markdown` is enabled with `prettier`');
 
   const {
     indent,
@@ -56,7 +56,7 @@ export async function formatters(
   } = {
     ...StylisticConfigDefaults,
     ...stylistic,
-  }
+  };
 
   const prettierOptions: VendoredPrettierOptions = Object.assign(
     {
@@ -69,14 +69,14 @@ export async function formatters(
       useTabs: indent === 'tab',
     } satisfies VendoredPrettierOptions,
     options.prettierOptions || {},
-  )
+  );
 
   const prettierXmlOptions: VendoredPrettierOptions = {
     xmlQuoteAttributes: 'double',
     xmlSelfClosingSpace: true,
     xmlSortAttributesByKey: false,
     xmlWhitespaceSensitivity: 'ignore',
-  }
+  };
 
   const dprintOptions = Object.assign(
     {
@@ -85,18 +85,18 @@ export async function formatters(
       useTabs: indent === 'tab',
     },
     options.dprintOptions || {},
-  )
+  );
 
-  const pluginFormat = await interopDefault(import('eslint-plugin-format'))
+  const pluginFormat = await interopDefault(import('eslint-plugin-format'));
 
   const configs: TypedFlatConfigItem[] = [
     {
-      name: 'antfu/formatter/setup',
+      name: 'hadronomy/formatter/setup',
       plugins: {
         format: pluginFormat,
       },
     },
-  ]
+  ];
 
   if (options.css) {
     configs.push(
@@ -105,7 +105,7 @@ export async function formatters(
         languageOptions: {
           parser: parserPlain,
         },
-        name: 'antfu/formatter/css',
+        name: 'hadronomy/formatter/css',
         rules: {
           'format/prettier': [
             'error',
@@ -120,7 +120,7 @@ export async function formatters(
         languageOptions: {
           parser: parserPlain,
         },
-        name: 'antfu/formatter/scss',
+        name: 'hadronomy/formatter/scss',
         rules: {
           'format/prettier': [
             'error',
@@ -135,7 +135,7 @@ export async function formatters(
         languageOptions: {
           parser: parserPlain,
         },
-        name: 'antfu/formatter/less',
+        name: 'hadronomy/formatter/less',
         rules: {
           'format/prettier': [
             'error',
@@ -145,7 +145,7 @@ export async function formatters(
           ],
         },
       },
-    )
+    );
   }
 
   if (options.html) {
@@ -154,7 +154,7 @@ export async function formatters(
       languageOptions: {
         parser: parserPlain,
       },
-      name: 'antfu/formatter/html',
+      name: 'hadronomy/formatter/html',
       rules: {
         'format/prettier': [
           'error',
@@ -163,7 +163,7 @@ export async function formatters(
           }),
         ],
       },
-    })
+    });
   }
 
   if (options.xml) {
@@ -172,7 +172,7 @@ export async function formatters(
       languageOptions: {
         parser: parserPlain,
       },
-      name: 'antfu/formatter/xml',
+      name: 'hadronomy/formatter/xml',
       rules: {
         'format/prettier': [
           'error',
@@ -184,7 +184,7 @@ export async function formatters(
           }),
         ],
       },
-    })
+    });
   }
   if (options.svg) {
     configs.push({
@@ -192,7 +192,7 @@ export async function formatters(
       languageOptions: {
         parser: parserPlain,
       },
-      name: 'antfu/formatter/svg',
+      name: 'hadronomy/formatter/svg',
       rules: {
         'format/prettier': [
           'error',
@@ -204,19 +204,19 @@ export async function formatters(
           }),
         ],
       },
-    })
+    });
   }
 
   if (options.markdown) {
     const formater = options.markdown === true
       ? 'prettier'
-      : options.markdown
+      : options.markdown;
 
     const GLOB_SLIDEV = !options.slidev
       ? []
       : options.slidev === true
         ? ['**/slides.md']
-        : options.slidev.files
+        : options.slidev.files;
 
     configs.push({
       files: [GLOB_MARKDOWN],
@@ -224,7 +224,7 @@ export async function formatters(
       languageOptions: {
         parser: parserPlain,
       },
-      name: 'antfu/formatter/markdown',
+      name: 'hadronomy/formatter/markdown',
       rules: {
         [`format/${formater}`]: [
           'error',
@@ -239,7 +239,7 @@ export async function formatters(
               },
         ],
       },
-    })
+    });
 
     if (options.slidev) {
       configs.push({
@@ -247,7 +247,7 @@ export async function formatters(
         languageOptions: {
           parser: parserPlain,
         },
-        name: 'antfu/formatter/slidev',
+        name: 'hadronomy/formatter/slidev',
         rules: {
           'format/prettier': [
             'error',
@@ -260,7 +260,7 @@ export async function formatters(
             }),
           ],
         },
-      })
+      });
     }
   }
 
@@ -270,7 +270,7 @@ export async function formatters(
       languageOptions: {
         parser: parserPlain,
       },
-      name: 'antfu/formatter/astro',
+      name: 'hadronomy/formatter/astro',
       rules: {
         'format/prettier': [
           'error',
@@ -282,11 +282,11 @@ export async function formatters(
           }),
         ],
       },
-    })
+    });
 
     configs.push({
       files: [GLOB_ASTRO, GLOB_ASTRO_TS],
-      name: 'antfu/formatter/astro/disables',
+      name: 'hadronomy/formatter/astro/disables',
       rules: {
         'style/arrow-parens': 'off',
         'style/block-spacing': 'off',
@@ -296,7 +296,7 @@ export async function formatters(
         'style/quotes': 'off',
         'style/semi': 'off',
       },
-    })
+    });
   }
 
   if (options.graphql) {
@@ -305,7 +305,7 @@ export async function formatters(
       languageOptions: {
         parser: parserPlain,
       },
-      name: 'antfu/formatter/graphql',
+      name: 'hadronomy/formatter/graphql',
       rules: {
         'format/prettier': [
           'error',
@@ -314,8 +314,8 @@ export async function formatters(
           }),
         ],
       },
-    })
+    });
   }
 
-  return configs
+  return configs;
 }

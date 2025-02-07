@@ -1,9 +1,9 @@
 // @ts-expect-error missing types
-import styleMigrate from '@stylistic/eslint-plugin-migrate'
+import styleMigrate from '@stylistic/eslint-plugin-migrate';
 
-import { antfu } from './src'
+import { hadronomy } from './src';
 
-export default antfu(
+export default hadronomy(
   {
     vue: true,
     react: true,
@@ -35,4 +35,4 @@ export default antfu(
       'style-migrate/migrate': ['error', { namespaceTo: 'style' }],
     },
   },
-)
+);

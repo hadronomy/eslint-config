@@ -1,20 +1,20 @@
-import process from 'node:process'
+import process from 'node:process';
 
-import * as p from '@clack/prompts'
-import c from 'picocolors'
-import yargs from 'yargs'
-import { hideBin } from 'yargs/helpers'
+import * as p from '@clack/prompts';
+import c from 'picocolors';
+import yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
 
-import { pkgJson } from './constants'
-import { run } from './run'
+import { pkgJson } from './constants';
+import { run } from './run';
 
 function header(): void {
-  console.log('\n')
-  p.intro(`${c.green(`@antfu/eslint-config `)}${c.dim(`v${pkgJson.version}`)}`)
+  console.log('\n');
+  p.intro(`${c.green(`@hadronomy/eslint-config `)}${c.dim(`v${pkgJson.version}`)}`);
 }
 
 const instance = yargs(hideBin(process.argv))
-  .scriptName('@antfu/eslint-config')
+  .scriptName('@hadronomy/eslint-config')
   .usage('')
   .command(
     '*',
@@ -38,23 +38,23 @@ const instance = yargs(hideBin(process.argv))
       })
       .help(),
     async (args) => {
-      header()
+      header();
       try {
-        await run(args)
+        await run(args);
       }
       catch (error) {
-        p.log.error(c.inverse(c.red(' Failed to migrate ')))
-        p.log.error(c.red(`✘ ${String(error)}`))
-        process.exit(1)
+        p.log.error(c.inverse(c.red(' Failed to migrate ')));
+        p.log.error(c.red(`✘ ${String(error)}`));
+        process.exit(1);
       }
     },
   )
   .showHelpOnFail(false)
   .alias('h', 'help')
   .version('version', pkgJson.version)
-  .alias('v', 'version')
+  .alias('v', 'version');
 
 // eslint-disable-next-line ts/no-unused-expressions
 instance
   .help()
-  .argv
+  .argv;

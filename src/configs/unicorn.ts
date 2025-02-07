@@ -1,11 +1,11 @@
-import type { OptionsUnicorn, TypedFlatConfigItem } from '../types'
+import type { OptionsUnicorn, TypedFlatConfigItem } from '../types';
 
-import { pluginUnicorn } from '../plugins'
+import { pluginUnicorn } from '../plugins';
 
 export async function unicorn(options: OptionsUnicorn = {}): Promise<TypedFlatConfigItem[]> {
   return [
     {
-      name: 'antfu/unicorn/rules',
+      name: 'hadronomy/unicorn/rules',
       plugins: {
         unicorn: pluginUnicorn,
       },
@@ -31,5 +31,5 @@ export async function unicorn(options: OptionsUnicorn = {}): Promise<TypedFlatCo
             }),
       },
     },
-  ]
+  ];
 }

@@ -1,13 +1,13 @@
 {
-  "name": "@antfu/eslint-config",
+  "name": "@hadronomy/eslint-config",
   "type": "module",
   "version": "4.1.1",
   "packageManager": "pnpm@10.0.0",
   "description": "Anthony's ESLint config",
-  "author": "Anthony Fu <anthonyfu117@hotmail.com> (https://github.com/antfu/)",
+  "author": "Anthony Fu <anthonyfu117@hotmail.com> (https://github.com/hadronomy/)",
   "license": "MIT",
-  "funding": "https://github.com/sponsors/antfu",
-  "homepage": "https://github.com/antfu/eslint-config",
+  "funding": "https://github.com/sponsors/hadronomy",
+  "homepage": "https://github.com/hadronomy/eslint-config",
   "keywords": [
     "eslint-config"
   ],
@@ -130,10 +130,10 @@
     "yargs": "^17.7.2"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "workspace:*",
     "@antfu/ni": "^23.3.1",
     "@eslint-react/eslint-plugin": "^1.26.0",
     "@eslint/config-inspector": "^1.0.0",
+    "@hadronomy/eslint-config": "workspace:*",
     "@prettier/plugin-xml": "^3.4.1",
     "@stylistic/eslint-plugin-migrate": "^3.0.1",
     "@types/fs-extra": "^11.0.4",

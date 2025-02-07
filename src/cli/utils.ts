@@ -1,12 +1,12 @@
-import { execSync } from 'node:child_process'
+import { execSync } from 'node:child_process';
 
 export function isGitClean(): boolean {
   try {
-    execSync('git diff-index --quiet HEAD --')
-    return true
+    execSync('git diff-index --quiet HEAD --');
+    return true;
   }
   catch {
-    return false
+    return false;
   }
 }
 
@@ -15,10 +15,10 @@ export function getEslintConfigContent(
   additionalConfigs?: string[],
 ): string {
   return `
-import antfu from '@antfu/eslint-config'
+import hadronomy from '@hadronomy/eslint-config'
 
-export default antfu({
+export default hadronomy({
 ${mainConfig}
 }${additionalConfigs?.map(config => `,{\n${config}\n}`)})
-`.trimStart()
+`.trimStart();
 }

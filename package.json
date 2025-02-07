@@ -1,7 +1,7 @@
 {
   "name": "@hadronomy/eslint-config",
   "type": "module",
-  "version": "4.1.1",
+  "version": "4.1.2",
   "packageManager": "pnpm@10.0.0",
   "description": "Pablos's ESLint config",
   "author": "Pablo Hernández <hadronomy@gmail.com> (https://github.com/hadronomy/)",
